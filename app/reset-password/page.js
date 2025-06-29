@@ -1,18 +1,18 @@
-"use client"; // Add this at the top
+'use client';
 
+import { Suspense } from 'react';
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FaEye, FaEyeSlash, FaWater } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { Lora } from "next/font/google";
-import { Suspense } from 'react'
 
 const Lorafont = Lora({
   subsets: ["latin"],
   weight: "700",
 });
 
-export default function ResetPassword() {
+function ResetPasswordInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
@@ -53,13 +53,8 @@ export default function ResetPassword() {
     try {
       const response = await fetch("/api/auth/reset-password", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token,
-          password: formData.password,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token, password: formData.password }),
       });
 
       const data = await response.json();
@@ -129,5 +124,13 @@ export default function ResetPassword() {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function ResetPassword() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ResetPasswordInner />
+    </Suspense>
   );
 }
