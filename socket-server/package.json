@@ -1,0 +1,13 @@
+{
+  "name": "rainalert-socket-server",
+  "version": "1.0.0",
+  "main": "socketServer.js",
+  "scripts": {
+    "start": "node socketServer.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "socket.io": "^4.7.2"
+  }
+}
