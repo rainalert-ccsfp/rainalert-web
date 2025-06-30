@@ -15,21 +15,41 @@ export default function WebSocketStream() {
   }, []);
 
   useEffect(() => {
-    // If no WebSocket URL is provided, skip connection
     if (!wsUrl) {
       console.warn("WebSocket URL not provided. Camera will not connect.");
+      return;
+    }
+
+    console.log("WebSocket connecting to:", wsUrl);
+
+    const isHttps = typeof window !== "undefined" && window.location.protocol === "https:";
+    const isInsecure = wsUrl.startsWith("ws://");
+
+    if (isHttps && isInsecure) {
+      console.error(
+        "Cannot connect to insecure WebSocket (ws://) from HTTPS page. Use wss:// instead."
+      );
       return;
     }
 
     const ws = new WebSocket(wsUrl);
     ws.binaryType = "blob";
 
-    ws.onopen = () => setConnected(true);
-    ws.onclose = () => setConnected(false);
-    ws.onerror = () => {
-      console.error("WebSocket error.");
+    ws.onopen = () => {
+      console.log("WebSocket connected.");
+      setConnected(true);
+    };
+
+    ws.onclose = () => {
+      console.warn("WebSocket disconnected.");
       setConnected(false);
     };
+
+    ws.onerror = (err) => {
+      console.error("WebSocket error:", err);
+      setConnected(false);
+    };
+
     ws.onmessage = (event) => {
       const imageUrl = URL.createObjectURL(event.data);
       if (imgRef.current) imgRef.current.src = imageUrl;
@@ -75,7 +95,7 @@ export default function WebSocketStream() {
         </span>
       </h2>
 
-      {wsUrl ? (
+      {connected && wsUrl ? (
         <img
           ref={imgRef}
           alt="ESP32-CAM Stream"
