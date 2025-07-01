@@ -40,7 +40,7 @@ let socket = null; // Variable to hold the socket instance
 
 // Socket.IO client configuration
 const SOCKET_CONFIG = {
-  url: "https://rainalert-web.onrender.com", // Socket server URL
+  url: "https://fe77-124-104-200-124.ngrok-free.app", // Socket server URL
   options: {
     transports: ["websocket", "polling"], // Transport methods in order of preference
     autoConnect: true, // Automatically connect when socket is created
