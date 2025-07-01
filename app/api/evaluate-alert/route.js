@@ -63,21 +63,21 @@ export async function POST() {
     // ✅ Parse and round the sensor distance
     const distance = parseFloat(latestSensorData.distance.toFixed(2));
 
-    // ✅ Determine alert level based on Arduino thresholds
-    let alertLevel = "";
+// ✅ Determine alert level based on sensor distance (in cm)
+let alertLevel = "";
 
-    if (distance > 60.96 && distance <= 76.2) {
-      alertLevel = "Warning";
-    } else if (distance > 30.48 && distance <= 60.96) {
-      alertLevel = "Danger";
-    } else if (distance <= 30.48) {
-      alertLevel = "Critical";
-    } else {
-      return NextResponse.json({
-        success: true,
-        message: "No flood alert triggered. Water level is safe.",
-      });
-    }
+if (distance > 43.18 && distance <= 70.61) {
+  alertLevel = "Warning";
+} else if (distance > 21.85 && distance <= 43.18) {
+  alertLevel = "Danger";
+} else if (distance <= 21.85) {
+  alertLevel = "Critical";
+} else {
+  return NextResponse.json({
+    success: true,
+    message: "No flood alert triggered. Water level is safe.",
+  });
+}
 
     // Check for duplicate alert
     const [existingAlert] = await pool.query(
