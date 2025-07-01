@@ -178,14 +178,14 @@ const FloodMonitoringApp = () => {
   let statusMessage = "";
   let statusColor = "text-gray-600";
 
-  if (latestSensorDistance !== null) {
-    if (latestSensorDistance <= 0.71) {
+ if (latestSensorDistance !== null) {
+    if (latestSensorDistance <= 1.0) {
       statusMessage = "Critical Flood Level! Immediate action required.";
       statusColor = "text-red-600 animate-pulse";
-    } else if (latestSensorDistance <= 1.41) {
+    } else if (latestSensorDistance <= 2.0) {
       statusMessage = "Danger: High Water Level!";
       statusColor = "text-red-500";
-    } else if (latestSensorDistance <= 2.41) {
+    } else if (latestSensorDistance <= 2.5) {
       statusMessage = "Warning: Rising Water Level.";
       statusColor = "text-yellow-500";
     } else {
