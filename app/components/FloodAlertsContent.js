@@ -392,5 +392,4 @@ if (latestSensorDistance !== null) {
     </div>
   );
 };
-
-export default FloodMonitoringApp;
+}
