@@ -191,11 +191,13 @@ if (latestSensorDistance !== null) {
   } else if (latestSensorDistance > 2.5 && latestSensorDistance <= 3.5) {
     statusMessage = "Safe Water Level.";
     statusColor = "text-green-600";
-  } else {
-    statusMessage = "Invalid reading.";
+   } else if (!errorMessage) {
+    statusMessage = "Awaiting sensor data.";
     statusColor = "text-gray-600";
+  } else {
+    statusMessage = errorMessage;
+    statusColor = "text-red-600";
   }
-}
   const handleSendAlert = async (message) => {
     return new Promise((resolve) => setTimeout(resolve, 1000));
   };
