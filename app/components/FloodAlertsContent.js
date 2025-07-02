@@ -178,7 +178,7 @@ const FloodMonitoringApp = () => {
   let statusMessage = "";
   let statusColor = "text-gray-600";
 
-if (latestSensorDistance !== null) {
+  if (latestSensorDistance !== null) {
     if (latestSensorDistance <= 1.0) {
       statusMessage = "Critical Flood Level! Immediate action required.";
       statusColor = "text-red-600 animate-pulse";
@@ -199,7 +199,6 @@ if (latestSensorDistance !== null) {
     statusMessage = errorMessage;
     statusColor = "text-red-600";
   }
-
   const handleSendAlert = async (message) => {
     return new Promise((resolve) => setTimeout(resolve, 1000));
   };
