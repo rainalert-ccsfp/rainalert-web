@@ -195,7 +195,7 @@ if (latestSensorDistance !== null) {
     statusMessage = "Invalid reading.";
     statusColor = "text-gray-600";
   }
-  
+}
   const handleSendAlert = async (message) => {
     return new Promise((resolve) => setTimeout(resolve, 1000));
   };
