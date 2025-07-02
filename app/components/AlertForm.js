@@ -57,7 +57,7 @@ const AlertForm = ({ selectedUsers }) => {
 
   const onSendAlert = async (msg) => {
     const userIds = selectedUsers.map((u) => u.user_id || u.id);
-    const backendUrl = "http://192.168.1.17:5000/api/send-push-alert";
+    const backendUrl = "https://rainalert-mobile.onrender.com/api/send-push-alert";
     await axios.post(backendUrl, { userIds, message: msg });
   };
 
