@@ -179,25 +179,21 @@ const FloodMonitoringApp = () => {
   let statusColor = "text-gray-600";
 
 if (latestSensorDistance !== null) {
-    if (latestSensorDistance <= 1.0) {
-      statusMessage = "Critical Flood Level! Immediate action required.";
-      statusColor = "text-red-600 animate-pulse";
-    } else if (latestSensorDistance <= 2.0) {
-      statusMessage = "Danger: High Water Level!";
-      statusColor = "text-red-500";
-    } else if (latestSensorDistance <= 2.5) {
-      statusMessage = "Warning: Rising Water Level.";
-      statusColor = "text-yellow-500";
-    } else {
-      statusMessage = "Safe Water Level.";
-      statusColor = "text-green-600";
-    }
-  } else if (!errorMessage) {
-    statusMessage = "Awaiting sensor data.";
-    statusColor = "text-gray-600";
+  if (latestSensorDistance >= 0.0 && latestSensorDistance <= 1.0) {
+    statusMessage = "Critical Flood Level! Immediate action required.";
+    statusColor = "text-red-600 animate-pulse";
+  } else if (latestSensorDistance > 1.0 && latestSensorDistance <= 2.0) {
+    statusMessage = "Danger: High Water Level!";
+    statusColor = "text-red-500";
+  } else if (latestSensorDistance > 2.0 && latestSensorDistance <= 2.5) {
+    statusMessage = "Warning: Rising Water Level.";
+    statusColor = "text-yellow-500";
+  } else if (latestSensorDistance > 2.5 && latestSensorDistance <= 3.5) {
+    statusMessage = "Safe Water Level.";
+    statusColor = "text-green-600";
   } else {
-    statusMessage = errorMessage;
-    statusColor = "text-red-600";
+    statusMessage = "Invalid reading.";
+    statusColor = "text-gray-600";
   }
 
   const handleSendAlert = async (message) => {
